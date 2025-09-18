@@ -11,7 +11,7 @@ Uygulama demosu:
 
 | Giriş                        | Görev Listesi                | Görev Ekleme                 | Görev Düzenleme              |
 | ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- |
-| ![Ekran1](screenshots/1.png) | ![Ekran2](screenshots/2.png) | ![Ekran3](screenshots/3.png) | ![Ekran4](screenshots/4.png) |
+| ![Ekran1](screenshots/1.png) | ![Ekran2](screenshots/2.png) | ![Ekran3](screenshots/4.png) | ![Ekran4](screenshots/3.png) |
 
 ## Kurulum
 
