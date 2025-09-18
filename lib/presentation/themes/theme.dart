@@ -6,7 +6,7 @@ class AppTheme {
   static const Color white = Colors.white;
   static const Color black = Colors.black;
 
-  // Dark Theme Colors
+  //Dark theme renkleri
   static const Color darkBackground = Color(0xFF121212); // ana arka plan
   static const Color darkCard = Color(0xFF1E1E1E); // kartlar için koyu gri
   static const Color darkGray = Color(0xFF2C2C2C); // buton/secondary alan için
@@ -24,7 +24,7 @@ class AppTheme {
       ),
     ),
 
-    //email password gbi textfieldler için
+    //email password gibi textfieldler için
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppTheme.lightGray,
@@ -54,7 +54,6 @@ class AppTheme {
       ),
     ),
 
-    //email password gbi textfieldler için
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,

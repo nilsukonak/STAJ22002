@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:todoapp/helpers/validation_helper.dart';
 import 'package:todoapp/models/task_model.dart';
 import 'package:todoapp/presentation/providers/task_provider.dart';
@@ -29,12 +28,11 @@ class _EditTaskPageState extends State<EditTaskPage> {
   final TextEditingController datecont = TextEditingController();
 
   final TextEditingController categorycont = TextEditingController();
-  final _formKey =
-      GlobalKey<FormState>(); //title için validate ile boş kontrolü yapacağız
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    super.initState(); //oncei deeğrler gozuksn
+    super.initState();
     print('InitState _formKey hash: ${_formKey.hashCode}');
     titlecont.text = widget.taskmodel.title;
     descriptioncont.text = widget.taskmodel.description;
@@ -51,15 +49,13 @@ class _EditTaskPageState extends State<EditTaskPage> {
 
   @override
   void dispose() {
-    // Controller’ları serbest bırak
+    // Controllerları serbest bırak
     titlecont.dispose();
     descriptioncont.dispose();
     datecont.dispose();
     categorycont.dispose();
     super.dispose();
   }
-
-  // build m
 
   @override
   Widget build(BuildContext context) {
@@ -175,38 +171,21 @@ class _EditTaskPageState extends State<EditTaskPage> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      //category yazdırmka için provider lazım
                       final dropdownProvider = context.read<DropdownProvider>();
                       final updatedTask = Taskmodel(
-                        //“verileri yeni bir model içine koyma işlrmi altta guncelleme yapıyo ”
                         id: widget.taskmodel.id,
                         title: titlecont.text,
                         description: descriptioncont.text,
                         date: datecont.text,
                         priority: dropdownProvider.selectedPriority ?? "",
                         category: dropdownProvider.selectedvalue ?? "",
-
-                        //category: categorycont.text, setstateli  bi durum vardı onu provider yaptm bu categoryi textte değil providerden alıp guncellemesi lazm firebaseye yazarken
                       );
-                      // 🔹 1. Hive güncelle
-                      var box = Hive.box<Taskmodel>('tasks');
-                      final index = box.values.toList().indexWhere(
-                        (t) => t.id == updatedTask.id,
-                      );
-                      if (index != -1) {
-                        box.putAt(index, updatedTask);
-                      }
                       final taskprovider = Provider.of<TaskProvider>(
                         context,
                         listen: false,
                       );
                       taskprovider.updatedTask(updatedTask);
 
-                      /* Navigator.pushReplacement(
-                        //sadece pop context vardı ama tarih kısmı login yapmadan guncellenmiyodu o yuzden her seferinde taskı cagırıyoz taskın icndeki initstatet de fetch var o yuzden guncelleniyo heemn
-                        context,
-                        MaterialPageRoute(builder: (context) => ViewTasks()),
-                      );*/
                       context.router.replace(const TasksRoute());
                     } else {
                       print('hata');

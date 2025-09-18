@@ -41,7 +41,6 @@ class _NewtasksPageState extends State<NewtasksPage> {
 
   @override
   void initState() {
-    //edittaskta duzenledgm son degerler new taskte de geliyodu bu yuzden temizledm
     print('InitState _formKey hash: ${_newformKey.hashCode}');
     super.initState();
     titlecont.clear();
@@ -66,14 +65,10 @@ class _NewtasksPageState extends State<NewtasksPage> {
     super.dispose();
   }
 
-  // build m
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
       appBar: AppBar(
-        //backgroundColor: Colors.white,
         toolbarHeight: 70,
         centerTitle: true,
         title: Text(
@@ -113,7 +108,7 @@ class _NewtasksPageState extends State<NewtasksPage> {
               height: MediaQuery.of(context).size.height * 0.06,
 
               decoration: BoxDecoration(
-                color: AppColors.lightGray, //email fln onun rengi ve etrafı
+                color: AppColors.lightGray,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: TextFormField(
@@ -151,7 +146,7 @@ class _NewtasksPageState extends State<NewtasksPage> {
               height: MediaQuery.of(context).size.height * 0.06,
 
               decoration: BoxDecoration(
-                color: AppColors.lightGray, //email fln onun rengi ve etrafı
+                color: AppColors.lightGray,
                 borderRadius: BorderRadius.circular(15),
               ),
 
@@ -180,26 +175,22 @@ class _NewtasksPageState extends State<NewtasksPage> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (_newformKey.currentState!.validate()) {
-                    //title kontrolu
                     final dropdownProvider = context.read<DropdownProvider>();
                     final newTask = Taskmodel(
                       title: titlecont.text,
                       description: descriptioncont.text,
                       date: datecont.text,
-                      priority:
-                          dropdownProvider.selectedPriority ??
-                          "", // ✅ buradan al
+                      priority: dropdownProvider.selectedPriority ?? "",
                       category: dropdownProvider.selectedvalue ?? "",
                     );
                     Taskmodel newTaskWithId = newTask;
-                    //taskscollection sminde bir firestoreye referans olusturuyoz yani görevleri firestorede dogru yere kaydetmk icin kullanyoz
+
                     try {
                       final tasksCollection = FirebaseFirestore.instance
                           .collection('user')
                           .doc(currentUserUid)
                           .collection('tasks');
 
-                      //map seklinde manuel olrk koleksiyona yazıyoz
                       final docRef = await tasksCollection.add({
                         'title': newTask.title,
                         'description': newTask.description,
@@ -217,7 +208,7 @@ class _NewtasksPageState extends State<NewtasksPage> {
                       context,
                       listen: false,
                     );
-                    //artk bu newtaskisyi guncelleme eklem yaprken falan kulanmam lazm cunku firestoreye ulascaz
+
                     taskprovider.addTask(newTaskWithId);
                     context.router.replace(const TasksRoute());
                   } else {

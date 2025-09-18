@@ -31,7 +31,6 @@ class _TasksPageState extends State<TasksPage> {
     // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
-        //geri tusunu basınca onceki işleme değil giriş sayfasına dönsn
         context.router.replaceAll([const LoginRoute()]);
         return false;
       },
@@ -57,7 +56,7 @@ class _TasksPageState extends State<TasksPage> {
               onPressed: () async {
                 try {
                   await context.read<LoginProvider>().logout();
-                  // Yönlendirmeyi AuthWrapper otomatik yapacak YANİ BURDA EKRAR LOGİNE DONMKE İÇN BİŞE YAPMIYOZ
+
                   context.router.replaceAll([const AuthWrapperRoute()]);
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -94,7 +93,6 @@ class _TasksPageState extends State<TasksPage> {
 
               const TasklistPage(),
 
-              //taskk icindr tasklist cagırılarak birbirine baglantı dart dosyaları
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
                 height: MediaQuery.of(context).size.height * 0.06,
@@ -106,7 +104,6 @@ class _TasksPageState extends State<TasksPage> {
                         MediaQuery.of(context).size.height * 0.18,
                         MediaQuery.of(context).size.width * 0.19,
                       ),
-                      //backgroundColor: AppTheme().buttonColor,
                     ),
                     onPressed: () {
                       context.router.push(const NewtasksRoute());

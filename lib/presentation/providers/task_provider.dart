@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todoapp/models/task_model.dart';
 import 'package:todoapp/data/repositories/task_repository.dart';
 
-//bu provider olmadna once surekli ekrna bastrmk için firestore gidiyod aam artk gorevler bi kere ceklp providerde tutuluyo sen filtreleme yapıyosn
-
 enum FilterOption { All, Active, Completed }
 
 class TaskProvider with ChangeNotifier {
@@ -34,7 +32,6 @@ class TaskProvider with ChangeNotifier {
   }
 
   FilterOption get selectedFilter => _selectedFilter;
-  //o an secli fitreyi okumak uı de chiplern hangisinin secili oldunu gostermke için lazm
 
   void changeFilter(FilterOption filter) {
     _selectedFilter = filter;
@@ -71,7 +68,7 @@ class TaskProvider with ChangeNotifier {
     // Task listesini temizle
     _task.clear();
     //notifyListeners();
-    // UI’ı güvenli şekilde güncelle
+    // UIı güvenli şekilde güncelle
 
     // Repository üzerinden görevleri çek
     _task = await _repository.fetchtasks(_userid!);
@@ -104,7 +101,7 @@ class TaskProvider with ChangeNotifier {
     }
   }
 
-  //isdone durumununguncelleme
+  //isdone durumunu guncelleme
   Future<void> toggleTaskDone(Taskmodel task) async {
     final uid = _userid;
     final newStatus = !task.isdone;

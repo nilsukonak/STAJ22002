@@ -25,19 +25,15 @@ class _TasklistPageState extends State<TasklistPage> {
   }
 
   Future<void> _loadtask() async {
-    //onceden bu vardı //final loadedTask = await fetchTasksFromFirestore();
     final taskprovider = Provider.of<TaskProvider>(context, listen: false);
     await taskprovider.fetchtasks();
   }
 
   @override
   Widget build(BuildContext context) {
-    //apply fonksunu sildk onun yerine providerden watch ile selectedfilteri sectk
-
     final taskProvider = context.watch<TaskProvider>();
     final localFilteredTasks = taskProvider.filteredTasks;
-    final taskActions = context.read<TaskProvider>(); // listen: false
-    //taskactionla beraber tekrar tekrar provider cagırmadn butun fonkslara bu sekilde ulasılıyo
+    final taskActions = context.read<TaskProvider>();
 
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.65,
@@ -45,15 +41,12 @@ class _TasklistPageState extends State<TasklistPage> {
         itemCount: localFilteredTasks.length,
         itemBuilder: (BuildContext context, int index) {
           final task = localFilteredTasks[index];
-          // final taskProvider = Provider.of<TaskProvider>(context);
 
           return Dismissible(
             key: ValueKey(task.id ?? UniqueKey()),
 
-            direction: DismissDirection.endToStart, // Sadece sağdan sola
+            direction: DismissDirection.endToStart,
             onDismissed: (direction) async {
-              //burda onceden uidi böle alıyodk provider olmadan once final uid = FirebaseAuth.instance.currentUser?.uid;
-
               await taskActions.dismisibleTask(task.id!);
 
               ScaffoldMessenger.of(
@@ -68,10 +61,9 @@ class _TasklistPageState extends State<TasklistPage> {
             ),
 
             child: Opacity(
-              opacity: task.isdone ? 0.7 : 1.0, //tıklananın opaklıgı azalcak
+              opacity: task.isdone ? 0.7 : 1.0,
 
               child: Card(
-                //tıklanablr olck edt sayfası acılsn diye
                 color: Colors.white,
                 child: InkWell(
                   onTap: () {
@@ -87,10 +79,7 @@ class _TasklistPageState extends State<TasklistPage> {
                       value: task.isdone,
                       activeColor: Colors.black,
                       onChanged: (bool? value) async {
-                        //taskactionla beraber tekrar tekrar provider cagırmadn butun fonkslara bu sekilde ulasılıyo
-                        await taskActions.toggleTaskDone(
-                          task,
-                        ); //nedne task.id! kullandk
+                        await taskActions.toggleTaskDone(task);
                       },
                     ),
 

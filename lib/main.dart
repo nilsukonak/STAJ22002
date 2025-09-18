@@ -13,10 +13,6 @@ import 'package:todoapp/presentation/themes/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //runappten once hive için 
-  Hive.registerAdapter(TaskmodelAdapter()); // otomatik generate edildi
-  await Hive.openBox<Taskmodel>('tasks');   // "tasks" kutusu açtık
-
 
   runApp(MultiProvider(providers: appProviders, child: MyApp()));
 }

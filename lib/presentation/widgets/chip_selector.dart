@@ -9,7 +9,7 @@ final containerrenk = const Color.fromARGB(253, 234, 232, 232);
 class Chipapp extends StatefulWidget {
   final Function(String) onchipselected;
   List<String> chiplist;
-  final String? selectedValue; // seçili değeri dışarıdan alıyoruz
+  final String? selectedValue;
 
   Chipapp({
     super.key,
@@ -36,9 +36,7 @@ class _ChipappState extends State<Chipapp> {
     return Wrap(
       spacing: MediaQuery.of(context).size.width * 0.04,
       children: List.generate(chiplist.length, (index) {
-        final isSelected =
-            chiplist[index] == widget.selectedValue; // <- Düzeltildi
-        //mainde 3 kere donmemek icin
+        final isSelected = chiplist[index] == widget.selectedValue;
         return ChoiceChip(
           label: Text(
             chiplist[index],
@@ -48,7 +46,6 @@ class _ChipappState extends State<Chipapp> {
                   : isdarkmode
                   ? AppTheme.darkGray
                   : AppTheme.darkCard,
-              //tıklanınca beyaz olsn secilen chipn texti
             ),
           ),
 
@@ -59,8 +56,7 @@ class _ChipappState extends State<Chipapp> {
             }
           },
 
-          shape: StadiumBorder(), //yuvarlak olması için
-          //avatar: CircleAvatar(backgroundColor: containerrenk), //tik iconu
+          shape: StadiumBorder(),
           selectedColor: isdarkmode ? AppTheme.darkGray : AppTheme.buttonColor,
           labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
         );
